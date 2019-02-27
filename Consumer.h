@@ -1,3 +1,6 @@
+#ifndef CONSUMER_H
+#define CONSUMER_H
+
 #include <iostream>
 #include <vector>
 
@@ -10,3 +13,5 @@ class Consumer {
 
 	void print();
 };
+
+#endif //CONSUMER_H
