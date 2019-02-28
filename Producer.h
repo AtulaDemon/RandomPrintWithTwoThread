@@ -1,18 +1,25 @@
 #ifndef PRODUCER_H
 #define PRODUCER_H
 
-#include <vector>
+#include <queue>
+#include <thread>
 
 class Producer {
-	private:
-    std::vector<int> numberList;
+    private:
+        std::queue<int>     numberList;
 
-    void generateRandomNumber();
+        void                generateRandomNumber();
 
-	public:
-	Producer();
+        std::thread         generateT;
 
-    std::vector<int>* getListAddress();
+    public:
+                            Producer();
+                            ~Producer();
+
+        int                 takeOneInt();
+    
+        void                run();
+        
 };
 
 #endif //PRODUCER_H

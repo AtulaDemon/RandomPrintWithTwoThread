@@ -1,12 +1,27 @@
 #include "Consumer.h"
 
-Consumer::Consumer(std::vector<int>* numberList) {
-	this->numberList = *numberList;
+#include <iostream>
+#include <chrono>
+
+Consumer::Consumer(Producer* prod) {
+    this -> prod = prod;
+}
+
+Consumer::~Consumer() {
 }
 
 void Consumer::print() {
-	int s = numberList.size();
-	for(int i=0; i<s; i++) {
-        std::cout << numberList[i] << " - ";
-	}
+    int theNumber;
+    for(int i=0; i<10000; i++) {
+        theNumber = prod->takeOneInt();
+        if(theNumber != 0) {
+            std::cout << theNumber << " - ";
+            //std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+    }
+}
+
+void Consumer::run() {
+    printT = std::thread(&Consumer::print, this);
+    printT.join();
 }

@@ -2,8 +2,9 @@
 #include "Consumer.h"
 
 int main() {
-	Producer* pro = new Producer();
-    Consumer* con = new Consumer(pro->getListAddress());
-	con->print();
+    Producer* prod = new Producer();
+    Consumer* cons = new Consumer(prod);
+    prod -> run();
+    cons -> run();
 	return 0;
 }

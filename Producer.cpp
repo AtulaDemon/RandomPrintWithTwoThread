@@ -1,20 +1,32 @@
 #include "Producer.h"
 
-#include<random>
+#include <random>
+#include <iostream>
 
 Producer::Producer() {
-    generateRandomNumber();
+} 
+
+Producer::~Producer() {
 }
 
 void Producer::generateRandomNumber() {
     std::random_device rd;
     std::mt19937_64 gen(rd());  //Predefined random number generators
-    std::uniform_int_distribution<int> dis(0,1000); //Random number distributions
-    for(int i=0; i<1000; i++) {
-        numberList.push_back(dis(gen));
+    std::uniform_int_distribution<int> dis(1,1000); //Random number distributions
+    while(true) {
+        numberList.push(dis(gen));
     }
 }
 
-std::vector<int>* Producer::getListAddress() {
-    return &numberList;
+void Producer::run() {
+    generateT = std::thread(&Producer::generateRandomNumber, this);
+}
+
+int Producer::takeOneInt() {
+    int oneNumber = 0;
+    if(!numberList.empty()) {
+        oneNumber = numberList.front();
+        numberList.pop();
+    }
+    return oneNumber;
 }

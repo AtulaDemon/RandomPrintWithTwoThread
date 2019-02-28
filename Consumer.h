@@ -1,17 +1,24 @@
 #ifndef CONSUMER_H
 #define CONSUMER_H
 
-#include <iostream>
-#include <vector>
+#include "Producer.h"
+
+#include <thread>
 
 class Consumer {
-	private:
-	std::vector<int> numberList;
+    private:        
+        Producer*       prod;
 
-	public:
-	Consumer(std::vector<int>* numberList);
+        void            print();
 
-	void print();
+        std::thread     printT;
+
+    public:
+                        Consumer(Producer* prod);
+                        ~Consumer();
+
+        void            run();
+        
 };
 
 #endif //CONSUMER_H
